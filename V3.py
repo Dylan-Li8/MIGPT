@@ -135,7 +135,7 @@ class Chatbot:
         self.__truncate_conversation(convo_id=convo_id)
         # Get response
         response = self.session.post(
-            "https://api.openai.com/v1/chat/completions",
+            "https://api.openai-sb.com/v1/chat/completions",
             headers={"Authorization": f"Bearer {self.api_key}"},
             json={
                 "model": self.engine,
