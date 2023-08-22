@@ -195,7 +195,9 @@ class MiGPT:
 
     async def run_forever(self):
         global SWITCH
-        print("正在运行 MiGPT, 请用\"打开/关闭高级对话\"控制对话模式。")
+        SWITCH = True
+        print("正在运行 MiGPT,默认开启\"高级对话\"模式")
+        print("请用\"打开/关闭高级对话\"控制对话模。")
         async with ClientSession() as session:
             await self.init_all_data(session)
             while True:
@@ -205,7 +207,11 @@ class MiGPT:
                     # we try to init all again
                     await self.init_all_data(session)
                     r = await self.get_latest_ask_from_xiaoai()
-                new_timestamp, last_record = self.get_last_timestamp_and_record(r)
+                result = self.get_last_timestamp_and_record(r)
+                if result is None:
+                    break
+                else:
+                    new_timestamp, last_record = result
                 if new_timestamp > self.last_timestamp:
                     self.last_timestamp = new_timestamp
                     query = last_record.get("query", "")
