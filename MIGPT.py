@@ -209,7 +209,7 @@ class MiGPT:
                     r = await self.get_latest_ask_from_xiaoai()
                 result = self.get_last_timestamp_and_record(r)
                 if result is None:
-                    break
+                    continue
                 else:
                     new_timestamp, last_record = result
                 if new_timestamp > self.last_timestamp:
